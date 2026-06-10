@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Pressable, StyleSheet, Text, View, FlatList } from 'react-native';
 import { auth, db } from "../Firebase/Config";
 import Post from "../Components/Post";
+import Usuarios from "./Usuarios";
 
 export default function Home({ navigation }){
     const [posteos, setPosteos] = useState([]);

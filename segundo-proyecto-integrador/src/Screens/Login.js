@@ -48,6 +48,11 @@ export default function Login({ navigation }) {
       <Pressable style={styles.button} onPress={onSubmit}>
         <Text style={styles.buttonText}>Login</Text>
       </Pressable>
+
+      <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.buttonText}>Login</Text>
+      </Pressable>
+
       <View style={styles.realTimeContainer}>
         <Text style={styles.realTimeTitle}>Visualización en tiempo real:</Text>
         <Text>Email: {email}</Text>
