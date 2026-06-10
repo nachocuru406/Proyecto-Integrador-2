@@ -19,7 +19,7 @@ export default function Login({ navigation }) {
     }
     auth.signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        navigation.navigate('Home');
+        navigation.navigate('NavegacionTab');
       })
       .catch((err) => {
         setError('Credenciales incorrectas');
@@ -45,12 +45,17 @@ export default function Login({ navigation }) {
         onChangeText={(text) => setPassword(text)}
         value={password}
       />
-      <Pressable style={styles.button} onPress={onSubmit}>
+      {
+        error !== "" ?
+          <Text style={styles.errorText}>{error}</Text>
+          :
+          null
+      }
+      <Pressable style={styles.button} onPress={() => navigation.navigate("NavegacionTab")}>
         <Text style={styles.buttonText}>Login</Text>
       </Pressable>
-
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Login</Text>
+      <Pressable style={styles.button} onPress={() => navigation.navigate("Register")}>
+        <Text style={styles.buttonText}>No tengo cuenta</Text>
       </Pressable>
 
       <View style={styles.realTimeContainer}>

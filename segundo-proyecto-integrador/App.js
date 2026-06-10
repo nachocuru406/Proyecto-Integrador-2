@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome } from '@expo/vector-icons';
 import Register from './src/Screens/Register';
 import Login from './src/Screens/Login';
 import Home from './src/Screens/Home';
