@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   input: {
-    height: 100,
-    width: 250,
+    height: 200,
+    width: 450,
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',

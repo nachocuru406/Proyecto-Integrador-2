@@ -41,11 +41,13 @@ const styles = StyleSheet.create({
     backgroundColor:
     '#fff', 
     alignItems: 'center',
-    paddingTop: 40},
+    paddingTop: 40
+  },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 20},
+    marginBottom: 20
+  },
   userCard: {
     width: 250,
     padding: 15,
@@ -53,11 +55,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
-    backgroundColor: '#f9f9f9'},
+    backgroundColor: '#f9f9f9'
+  },
   emailText: {
     fontWeight: 'bold',
-    fontSize: 16},
+    fontSize: 16
+  },
   userText: {
     color: '#555',
-    marginTop: 5}
+    marginTop: 5
+  },
 });

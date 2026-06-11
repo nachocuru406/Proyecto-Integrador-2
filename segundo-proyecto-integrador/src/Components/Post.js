@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#ddd',
-    width: 250,
+    width: 450,
   },
   email: {
     fontWeight: 'bold',
@@ -111,5 +111,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 12,
-  }
+  },
 });

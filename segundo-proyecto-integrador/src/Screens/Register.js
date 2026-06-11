@@ -59,6 +59,9 @@ export default function Register({ navigation }) {
       <Pressable style={styles.button} onPress={onSubmit}>
         <Text style={styles.buttonText}>Registrate</Text>
       </Pressable>
+      <Pressable style={styles.button} onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.buttonText}>Ya tengo cuenta</Text>
+      </Pressable>
     </View>
   );
 }

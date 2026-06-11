@@ -57,7 +57,6 @@ export default function Login({ navigation }) {
       <Pressable style={styles.button} onPress={() => navigation.navigate("Register")}>
         <Text style={styles.buttonText}>No tengo cuenta</Text>
       </Pressable>
-
       <View style={styles.realTimeContainer}>
         <Text style={styles.realTimeTitle}>Visualización en tiempo real:</Text>
         <Text>Email: {email}</Text>

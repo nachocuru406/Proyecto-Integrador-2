@@ -1,6 +1,7 @@
 import { View, Text, Pressable, StyleSheet, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import { auth, db } from "../Firebase/Config";
+import Post from "../Components/Post";
 
 export default function Perfil(props) {
     const [misPosts, setMisPosts] = useState([]);
@@ -16,9 +17,9 @@ export default function Perfil(props) {
                     setUsername(doc.data().username);
                 });
             });
+
         db.collection("posts")
             .where("email", "==", email)
-            .orderBy("createdAt", "desc")
             .onSnapshot((docs) => {
                 let posts = [];
                 docs.forEach((doc) => {
@@ -27,7 +28,10 @@ export default function Perfil(props) {
                         data: doc.data()
                     });
                 });
+                                
                 setMisPosts(posts);
+            }, (error) => {
+                console.log("Error trayendo los posts: ", error);
             });
     }, []);
 
@@ -47,18 +51,10 @@ export default function Perfil(props) {
             <FlatList
                 data={misPosts}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={styles.post}>
-                        <Text style={styles.fecha}>
-                            Posteo: {new Date(item.data.createdAt).toLocaleString()}
-                        </Text>
-                        <Text style={styles.descripcion}>
-                            {item.data.descripcionPost}
-                        </Text>
-                    </View>
-                )}
+                renderItem={({ item }) => <Post postData={item.data} id={item.id} />}
+                showsVerticalScrollIndicator={false}
             />
-            <Pressable style={styles.button} onPress={logout}>
+            <Pressable style={[styles.button, styles.logoutBtn]} onPress={logout}>
                 <Text style={styles.buttonText}> Cerrar sesión </Text>
             </Pressable>
         </View>
@@ -87,22 +83,6 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         marginBottom: 15,
     },
-    post: {
-        borderWidth: 2,
-        borderRadius: 15,
-        padding: 15,
-        marginBottom: 15,
-        borderColor: '#2833a7',
-        backgroundColor: "#c6dbeb",
-    },
-    fecha: {
-        color: "gray",
-        fontSize: 12,
-        marginBottom: 8,
-    },
-    descripcion: {
-        fontSize: 18,
-    },
     button: {
         width: 250,
         padding: 12,
@@ -110,6 +90,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 10,
         marginBottom: 20,
+    },
+    logoutBtn: {
         backgroundColor: '#dc3545',
     },
     buttonText: {
