@@ -3,13 +3,14 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { auth, db } from '../Firebase/Config';
 import firebase from 'firebase';
 
-export default function Post({ postData, id }) { 
+export default function Post({ postData, id, navigation }) {
   const [likesCount, setLikesCount] = useState(0);
   const [isMyLike, setIsMyLike] = useState(false);
+  const [comentarios, setComentarios] = useState([]);
 
   useEffect(() => {
     let unArray = postData.likes ? postData.likes : [];
-    
+
     setLikesCount(unArray.length);
 
     if (unArray.includes(auth.currentUser.email)) {
@@ -18,6 +19,26 @@ export default function Post({ postData, id }) {
       setIsMyLike(false);
     }
   }, [postData]);
+
+  useEffect(() => {
+    db.collection("posts")
+      .doc(id)
+      .collection("comentarios")
+      .orderBy("createdAt", "desc")
+      .limit(2)
+      .onSnapshot((docs) => {
+        let comentariosArray = [];
+
+        docs.forEach((doc) => {
+          comentariosArray.push({
+            id: doc.id,
+            data: doc.data(),
+          });
+        });
+
+        setComentarios(comentariosArray);
+      });
+  }, [id]);
 
   const likePost = () => {
     db.collection('posts')
@@ -46,7 +67,7 @@ export default function Post({ postData, id }) {
     <View style={styles.container}>
       <Text style={styles.email}>{postData.email}</Text>
       <Text style={styles.description}>{postData.descripcion}</Text>
-            <View style={styles.likesContainer}>
+      <View style={styles.likesContainer}>
         <Text style={styles.likesCount}>{likesCount} Likes</Text>
         {isMyLike ? (
           <Pressable onPress={unlikePost} style={styles.unlikeBtn}>
@@ -57,6 +78,21 @@ export default function Post({ postData, id }) {
             <Text style={styles.btnText}>Like</Text>
           </Pressable>
         )}
+        <Pressable onPress={() => navigation.navigate('Comentarios', { id: id })} style={styles.commentBtn}>
+          <Text style={styles.btnText}>Comentarios</Text>
+        </Pressable>
+      </View>
+      <View style={styles.commentsContainer}>
+        {comentarios.map((comentario) => (
+          <View key={comentario.id} style={styles.commentBox}>
+            <Text style={styles.commentEmail}>
+              {comentario.data.email}
+            </Text>
+            <Text style={styles.commentText}>
+              {comentario.data.texto}
+            </Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -111,5 +147,29 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 12,
+  },
+  commentBtn: {
+    backgroundColor: '#007BFF',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+  },
+  commentsContainer: {
+    marginTop: 10,
+  },
+  commentBox: {
+    backgroundColor: "#f1f1f1",
+    padding: 8,
+    borderRadius: 6,
+    marginTop: 5,
+  },
+  commentEmail: {
+    fontWeight: "bold",
+    color: "#007BFF",
+    fontSize: 12,
+  },
+  commentText: {
+    fontSize: 14,
+    color: "#333",
   },
 });

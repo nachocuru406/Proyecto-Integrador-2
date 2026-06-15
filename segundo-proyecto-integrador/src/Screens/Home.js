@@ -33,7 +33,7 @@ export default function Home({ navigation }){
           <FlatList 
             data={posteos}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <Post postData={item.data} id={item.id} />}
+            renderItem={({ item }) => <Post postData={item.data} id={item.id} navigation={navigation} />}
             style={styles.list}
             showsVerticalScrollIndicator={false}
           />
